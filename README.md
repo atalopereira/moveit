@@ -24,7 +24,6 @@
 
 
 ## ✨ Tecnologias
----
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 - React
@@ -34,7 +33,6 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 <br>
 
 ## 💻 Projeto
----
 
 O move.it é um aplicativo que une a técnica Pomodoro com a realização de exercícios físicos, ideal para quem passa muito tempo na frente do computador.
 
@@ -43,14 +41,12 @@ Esse projeto foi desenvolvido em um evento online da Rocketseat chamado nlw#4.
 <br>
 
 ## 🖌️ Layout
----
 
 Você pode acessar o layout da aplicação através [desse link](https://www.figma.com/file/jSEr5tgBb2bUTKUHrejwA7/Move.it-1.0-Copy?node-id=160%3A2761). É necessário ter conta no Figma para acessá-lo.
 
 <br>
 
 ## 🚀 Como executar
----
 
 - Clone o repositório do git;
 - Acesse a pasta clonada;
@@ -72,6 +68,8 @@ Agora acesse seu navegador e digite
 <br>
 
 ## 📄 Licença
----
 
 Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://github.com/atalopereira/moveit/blob/main/LICENSE.md) para mais detalhes.
+
+---
+Divirtam-se e espero que gostem 😁
