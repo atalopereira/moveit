@@ -30,21 +30,15 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - Next.js
 - TypeScript
 
-<br>
-
 ## 💻 Projeto
 
 O move.it é um aplicativo que une a técnica Pomodoro com a realização de exercícios físicos, ideal para quem passa muito tempo na frente do computador.
 
 Esse projeto foi desenvolvido em um evento online da Rocketseat chamado nlw#4.
 
-<br>
-
 ## 🖌️ Layout
 
 Você pode acessar o layout da aplicação através [desse link](https://www.figma.com/file/jSEr5tgBb2bUTKUHrejwA7/Move.it-1.0-Copy?node-id=160%3A2761). É necessário ter conta no Figma para acessá-lo.
-
-<br>
 
 ## 🚀 Como executar
 
@@ -64,8 +58,6 @@ Você pode acessar o layout da aplicação através [desse link](https://www.fig
   ``` 
 Agora acesse seu navegador e digite 
 [`localhost:3000`](http://localhost:3000)
-
-<br>
 
 ## 📄 Licença
 
