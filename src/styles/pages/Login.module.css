@@ -1,0 +1,75 @@
+.container {
+  height: 100vh;
+  margin: 0 auto;
+  padding: 0 2.5rem 2rem 0;
+  background-color: var(--blue-dark);
+}
+
+.container section {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+}
+
+.leftSide img {
+  width: 100vh;
+}
+
+.rightSide {
+  color: var(--white);
+  height: 100vh;
+  width: 30rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rightSide span {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  margin-top: 4.63rem;
+}
+
+.wrapGitHub {
+  display: flex;
+  margin-bottom: 2.5rem;
+}
+
+.rightSide p {
+  font-size: 24px;
+  margin-left: 1rem;
+}
+
+.wrapLogin {
+  display: flex;
+  align-items: center;
+}
+
+.wrapLogin input{
+  background-color: var(--blue);
+  width: 17.2rem;
+  height: 3.8rem;
+  border: 0;
+  border-radius: 5px;
+  padding: 10px;
+  color: var(--white);
+  font-size: 17px;
+}
+
+.wrapLogin button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--blue);
+  border: 0;
+  width: 4.1rem;
+  height: 3.8rem;
+  border-radius: 5px;
+  margin-left: 1rem;
+}
+
+.wrapLogin button:hover{
+  background-color: var(--green);
+  transition: background-color 0.2s;
+}

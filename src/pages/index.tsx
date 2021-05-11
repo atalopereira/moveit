@@ -1,62 +1,42 @@
-import Head from 'next/head';
-import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
+import Cookie from 'js-cookie';
+import styles from '../styles/pages/Login.module.css';
 
-import { CompletedChallenges } from "../components/CompletedChallenges";
-import { Countdown } from "../components/Countdown";
-import { ExperienceBar } from "../components/ExperienceBar";
-import { Profile } from "../components/Profile";
-import { ChallengeBox } from "../components/ChallengeBox";
+export default function Login() {
+  const router = useRouter();
 
-import styles from '../styles/pages/Home.module.css';
-import { CountdownProvider } from '../contexts/CountdownContext';
-import { ChallengesProvider } from '../contexts/ChallengesContext';
-
-interface HomeProps {
-  level: number;
-  currentExperience: number;
-  challengesCompleted: number;
-}
-
-export default function Home(props: HomeProps) {
-  return (
-    <ChallengesProvider
-      level={props.level}
-      currentExperience={props.currentExperience}
-      challengesCompleted={props.challengesCompleted}
-    >
-    <div className={styles.container}>
-      <Head>
-        <title>Início | move.it</title>
-      </Head>
-
-      <ExperienceBar/>
-      <CountdownProvider>
-        <section>
-          <div>
-            <Profile/>
-            <CompletedChallenges/>
-            <Countdown/>
-          </div>
-
-          <div>
-            <ChallengeBox/>
-          </div>
-        </section>
-      </CountdownProvider>
-    </div>
-    </ChallengesProvider>
-  )
-}
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-
-  const { level, currentExperience, challengesCompleted } = ctx.req.cookies;
-
-  return {
-    props: {
-      level: Number(0),
-      currentExperience: Number(0),
-      challengesCompleted: Number(0)
-    }
+  function signIn() {
+    Cookie.set('token-moveit', 'custom-token-here');
+    router.push('/home');
   }
+
+  function signOut() {
+    Cookie.remove('token-moveit');
+  }
+  
+  return (
+    <div className={styles.container}>
+      <section>
+        <div className={styles.leftSide}>
+          <img src="/favicon-big.svg" alt="icon"/>
+        </div>
+        <div className={styles.rightSide}>
+          <img src="/logo-full-white.svg" alt="logo moveit"/>
+          <span>Bem-vindo</span>
+
+          <div className={styles.wrapGitHub}>
+            <img src="/icons/github.svg" alt="logo github" />
+            <p>Faça o login usando sua conta do GitHub</p>
+          </div>
+
+          <div className={styles.wrapLogin}>
+            <input />
+            <button type="button" onClick={signIn}>
+              <img src="/icons/arrow-right.svg" alt="entrar" />
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
 }
