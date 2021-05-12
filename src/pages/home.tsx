@@ -24,7 +24,7 @@ export default function Home(props: HomeProps) {
   const router = useRouter();
   
   useEffect(() => {
-    const token = Cookie.get('token-moveit');
+    const token = Cookie.get('moveit-name');
 
     if (!token) {
       router.replace('/');

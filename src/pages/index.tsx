@@ -1,17 +1,31 @@
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import Cookie from 'js-cookie';
+import api from '../api';
 import styles from '../styles/pages/Login.module.css';
 
 export default function Login() {
   const router = useRouter();
+  const [username, setUsername] = useState('');
+  const [errorUser, setErrorUser] = useState(false);
 
-  function signIn() {
-    Cookie.set('token-moveit', 'custom-token-here');
-    router.push('/home');
+  async function signIn(event) {
+    event.preventDefault();
+
+    await api.get(username)
+      .then((response) => {
+        console.log('response: ', response.data);
+        Cookie.set('moveit-name', response.data.name);
+        router.push('/home');
+      })
+      .catch((error) => {
+        setErrorUser(true);
+      });
   }
 
-  function signOut() {
-    Cookie.remove('token-moveit');
+  function handleChangeUsername(event: { target: HTMLInputElement }) {
+    setErrorUser(false);
+    setUsername(event.target.value);
   }
   
   return (
@@ -29,12 +43,22 @@ export default function Login() {
             <p>Faça o login usando sua conta do GitHub</p>
           </div>
 
-          <div className={styles.wrapLogin}>
-            <input />
-            <button type="button" onClick={signIn}>
-              <img src="/icons/arrow-right.svg" alt="entrar" />
-            </button>
-          </div>
+          <form onSubmit={signIn}>
+            <div className={styles.wrapLogin}>
+              <input
+                type="text"
+                value={username}
+                onChange={handleChangeUsername}
+                placeholder="Digite seu username"
+              />
+              <button type="submit">
+                <img src="/icons/arrow-right.svg" alt="entrar" />
+              </button>
+            </div>
+            {errorUser &&
+              <p>Usuário não encontrado</p>          
+            }
+          </form>
         </div>
       </section>
     </div>

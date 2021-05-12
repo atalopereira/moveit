@@ -31,6 +31,14 @@
   margin-top: 4.63rem;
 }
 
+.rightSide > form > p {
+  position: absolute;
+  font-size: 18px !important;
+  margin-left: 0 !important;
+  margin-top: 10px;
+  color: var(--red-light);
+}
+
 .wrapGitHub {
   display: flex;
   margin-bottom: 2.5rem;
@@ -55,6 +63,10 @@
   padding: 10px;
   color: var(--white);
   font-size: 17px;
+}
+
+.wrapLogin input::-webkit-input-placeholder {
+  color: var(--white);
 }
 
 .wrapLogin button{
