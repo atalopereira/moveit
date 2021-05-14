@@ -16,6 +16,9 @@ export default function Login() {
       .then((response) => {
         console.log('response: ', response.data);
         Cookie.set('moveit-name', response.data.name);
+        Cookie.set('moveit-login', response.data.login);
+        Cookie.set('moveit-id', response.data.id);
+        // Cookie.set('moveit-image', response.data.avatar_url);
         router.push('/home');
       })
       .catch((error) => {
