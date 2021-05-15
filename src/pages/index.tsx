@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Cookie from 'js-cookie';
-import api from '../api';
+import { api, apiUsers } from '../api';
 import styles from '../styles/pages/Login.module.css';
 
 export default function Login() {
@@ -15,15 +15,20 @@ export default function Login() {
     await api.get(username)
       .then((response) => {
         console.log('response: ', response.data);
-        Cookie.set('moveit-name', response.data.name);
-        Cookie.set('moveit-login', response.data.login);
-        Cookie.set('moveit-id', response.data.id);
+        // Cookie.set('moveit-name', response.data.name);
+        // Cookie.set('moveit-login', response.data.login);
+        // Cookie.set('moveit-id', response.data.id);
+        users(username);
         // Cookie.set('moveit-image', response.data.avatar_url);
-        router.push('/home');
+        // router.push('/home');
       })
       .catch((error) => {
         setErrorUser(true);
       });
+  }
+
+  async function users(username: string) {
+    await apiUsers(username);
   }
 
   function handleChangeUsername(event: { target: HTMLInputElement }) {
