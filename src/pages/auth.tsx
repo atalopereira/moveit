@@ -1,1 +1,3 @@
-export const isAuthenticated = () => true;
+export default function isAuthenticated() {
+  return true
+};
