@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import Cookie from 'js-cookie';
@@ -13,7 +13,7 @@ import { ChallengeBox } from "../components/ChallengeBox";
 import styles from '../styles/pages/Home.module.css';
 import { CountdownProvider } from '../contexts/CountdownContext';
 import { ChallengesProvider } from '../contexts/ChallengesContext';
-import { UserInfoProvider } from '../contexts/UserInfoContext';
+import { UserInfoContext } from '../contexts/UserInfoContext';
 
 interface HomeProps {
   level: number;
@@ -23,6 +23,7 @@ interface HomeProps {
 
 export default function Home(props: HomeProps) {
   const router = useRouter();
+  const { login } = useContext(UserInfoContext);
   
   useEffect(() => {
     const token = Cookie.get('moveit-name');
@@ -43,8 +44,8 @@ export default function Home(props: HomeProps) {
       <Head>
         <title>Início | move.it</title>
       </Head>
-
-      <UserInfoProvider>
+      {login &&
+      <>
         <ExperienceBar/>
         <CountdownProvider>
           <section>
@@ -59,7 +60,8 @@ export default function Home(props: HomeProps) {
             </div>
           </section>
         </CountdownProvider>
-      </UserInfoProvider>
+  </>
+  }
     </div>
     </ChallengesProvider>
   )

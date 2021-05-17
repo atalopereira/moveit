@@ -1,8 +1,11 @@
+import { UserInfoProvider } from '../contexts/UserInfoContext';
 import '../styles/global.css';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Component {...pageProps} />
+    <UserInfoProvider>
+      <Component {...pageProps} />
+    </UserInfoProvider>
   );
 }
 

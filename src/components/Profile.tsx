@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { ChallengesContext } from '../contexts/ChallengesContext';
-import { UserInfoContext, UserInfoProvider } from '../contexts/UserInfoContext';
+import { UserInfoContext } from '../contexts/UserInfoContext';
 import styles from '../styles/components/Profile.module.css';
 
 export function Profile() {
@@ -8,14 +8,18 @@ export function Profile() {
   const { name, login } = useContext(UserInfoContext);
   return (
     <div className={styles.profileContainer}>
+      {login &&
+      <>
       <img src={`https://github.com/${login}.png`} alt="image profile" />
       <div>
-        <strong>{name ? name : 'Usuário'}</strong>
+        <strong>{name !== null ? name : 'Usuário'}</strong>
         <p>
           <img src="icons/level.svg" alt="level"/>
           level {level}
         </p>
       </div>
+      </>
+      }
     </div>
   );
 }

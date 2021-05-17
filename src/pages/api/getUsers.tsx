@@ -1,4 +1,4 @@
-import { VercelRequest, VercelResponse } from '@vercel/node'
+import { VercelRequest, VercelResponse } from '@vercel/node';
 import { MongoClient, Db } from 'mongodb';
 
 let cachedDb: Db = null;
@@ -16,22 +16,22 @@ async function connectToDatabase(uri: string) {
   const dbName = new URL(uri).pathname.substr(1);
 
   const db = client.db(dbName);
-  
+
   cachedDb = db;
 
   return db;
 }
 
 export default async (request: VercelRequest, response: VercelResponse) => {
-  const { username, name, id } = request.body;
   const db = await connectToDatabase(process.env.MONGODB_URI);
   const collection = db.collection('users');
-
-  await collection.insertOne({
-    _id: id,
-    username,
-    name
+  const result = await collection.findOne({
+    username: request.query[0]
   });
 
-  return response.status(201).json({ Ok: true });
+  if (result === null) {
+    return response.status(404).json({});
+  }
+
+  return response.status(200).json({ result });
 }

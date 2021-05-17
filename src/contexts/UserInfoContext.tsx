@@ -3,7 +3,8 @@ import Cookie, { set } from 'js-cookie';
 
 interface UserInfoContextData {
   name: string;
-  login: string
+  login: string;
+  storeInfoUser: (name: string, login: string) => void;
 }
 
 interface UserInfoProviderProps {
@@ -19,21 +20,34 @@ export function UserInfoProvider({ children } : UserInfoProviderProps) {
   useEffect(() => {
     const nameCookie = Cookie.get('moveit-name');
     const loginCookie = Cookie.get('moveit-login');
-
-    if (name !== nameCookie) {
-      setName(nameCookie);
+    
+    if (name != nameCookie) {
+      if (nameCookie === "null") {
+        setName(JSON.parse(nameCookie));
+      } else {
+        setName(nameCookie);
+      }
     }
 
-    if (login !== loginCookie) {
+    if (login != loginCookie) {
       setLogin(loginCookie);
     }
   }, []);
+
+
+  function storeInfoUser(name: string, login: string) {
+    Cookie.set('moveit-name', name);
+    Cookie.set('moveit-login', login);
+    setName(name);
+    setLogin(login);
+  };
 
   return (
     <UserInfoContext.Provider
       value={{
         name,
-        login
+        login,
+        storeInfoUser,
       }}
     >
       {children}

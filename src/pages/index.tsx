@@ -1,11 +1,13 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Cookie from 'js-cookie';
-import { api, apiUsers } from '../api';
+import { api, apiUsers, getUser } from '../api';
 import styles from '../styles/pages/Login.module.css';
+import { UserInfoContext } from '../contexts/UserInfoContext';
 
 export default function Login() {
   const router = useRouter();
+  const { storeInfoUser  } = useContext(UserInfoContext);
   const [username, setUsername] = useState('');
   const [errorUser, setErrorUser] = useState(false);
 
@@ -15,20 +17,30 @@ export default function Login() {
     await api.get(username)
       .then((response) => {
         console.log('response: ', response.data);
-        // Cookie.set('moveit-name', response.data.name);
-        // Cookie.set('moveit-login', response.data.login);
-        // Cookie.set('moveit-id', response.data.id);
-        users(username);
-        // Cookie.set('moveit-image', response.data.avatar_url);
-        // router.push('/home');
+
+        // If there exist username, use data, otherwise, store it in the DB 
+        getUser(username)
+          .then((response) => {
+            const { _id: id, name, username } = response.data.result;
+            storeInfoUser(name, username);
+          })
+          .catch(() => {
+            const { name, id } = response.data;
+            insertUser(username, name, id);
+            storeInfoUser(name, username);
+          });
+
+        setTimeout(() => {
+          router.push('/home');
+        }, 2000);
       })
       .catch((error) => {
         setErrorUser(true);
       });
   }
 
-  async function users(username: string) {
-    await apiUsers(username);
+  async function insertUser(username: string, name: string, id: number) {
+    await apiUsers(username, name, id);
   }
 
   function handleChangeUsername(event: { target: HTMLInputElement }) {
