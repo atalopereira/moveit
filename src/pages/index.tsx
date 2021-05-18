@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
-import Cookie from 'js-cookie';
 import { api, apiUsers, getUser } from '../api';
 import styles from '../styles/pages/Login.module.css';
 import { UserInfoContext } from '../contexts/UserInfoContext';
@@ -10,6 +9,7 @@ export default function Login() {
   const { storeInfoUser  } = useContext(UserInfoContext);
   const [username, setUsername] = useState('');
   const [errorUser, setErrorUser] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function signIn(event) {
     event.preventDefault();
@@ -30,8 +30,11 @@ export default function Login() {
             storeInfoUser(name, username);
           });
 
+        setIsLoading(true);
+
         setTimeout(() => {
           router.push('/home');
+          setIsLoading(false);
         }, 2000);
       })
       .catch((error) => {
@@ -65,15 +68,31 @@ export default function Login() {
 
           <form onSubmit={signIn}>
             <div className={styles.wrapLogin}>
-              <input
-                type="text"
-                value={username}
-                onChange={handleChangeUsername}
-                placeholder="Digite seu username"
-              />
-              <button type="submit">
-                <img src="/icons/arrow-right.svg" alt="entrar" />
-              </button>
+              {isLoading ?
+                <>
+                  <input
+                    type="text"
+                    value={username}
+                    placeholder="Digite seu username"
+                    disabled
+                  />
+                  <button disabled>
+                    <div className={styles.loader}/>
+                  </button>
+                </>
+              :
+                <>
+                  <input
+                    type="text"
+                    value={username}
+                    onChange={handleChangeUsername}
+                    placeholder="Digite seu username"
+                  />
+                  <button type="submit">
+                    <img src="/icons/arrow-right.svg" alt="entrar" />
+                  </button>
+                </>
+              }
             </div>
             {errorUser &&
               <p>Usuário não encontrado</p>          
