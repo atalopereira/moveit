@@ -9,6 +9,7 @@ import { Countdown } from "../components/Countdown";
 import { ExperienceBar } from "../components/ExperienceBar";
 import { Profile } from "../components/Profile";
 import { ChallengeBox } from "../components/ChallengeBox";
+import SideBar from '../components/SideBar';
 
 import styles from '../styles/pages/Home.module.css';
 import { CountdownProvider } from '../contexts/CountdownContext';
@@ -23,7 +24,6 @@ interface HomeProps {
 
 export default function Home(props: HomeProps) {
   const router = useRouter();
-  const { login } = useContext(UserInfoContext);
   
   useEffect(() => {
     const token = Cookie.get('moveit-name');
@@ -40,13 +40,12 @@ export default function Home(props: HomeProps) {
       currentExperience={props.currentExperience}
       challengesCompleted={props.challengesCompleted}
     >
-    <div className={styles.container}>
-      <Head>
-        <title>Início | move.it</title>
-      </Head>
-      {login &&
-      <>
+      <div className={styles.container}>
+        <Head>
+          <title>Início | move.it</title>
+        </Head>
         <ExperienceBar/>
+        <SideBar/>
         <CountdownProvider>
           <section>
             <div>
@@ -60,9 +59,7 @@ export default function Home(props: HomeProps) {
             </div>
           </section>
         </CountdownProvider>
-  </>
-  }
-    </div>
+      </div>
     </ChallengesProvider>
   )
 }
