@@ -3,7 +3,11 @@ import { useRouter } from 'next/router';
 
 import style from '../styles/components/SideBar.module.css';
 
-export default function SideBar() {
+interface SideBarProps {
+  currentRoute: string
+}
+
+export default function SideBar(props: SideBarProps) {
   const route = useRouter();
 
   function goToHome(event) {
@@ -17,24 +21,26 @@ export default function SideBar() {
   }
 
   return (
-    <main>
-    <div className={style.container}>
-      <div className={style.logoIcon}>
-        <img src="icons/logo.svg" alt="logo"/>
-      </div>
-      <div className={style.options}>
-        <img
-          onClick={goToHome}
-          src="icons/home.svg"
-          alt="home"
-        />
-        <img
-          onClick={goToClassification}
-          src="icons/podium.svg"
-          alt="classificação"
-        />
-      </div>
-    </div>
-    </main>
+    <>
+      {props.currentRoute !== '/' &&
+        <div className={style.container}>
+          <div className={style.logoIcon}>
+            <img src="icons/logo.svg" alt="logo"/>
+          </div>
+          <div className={style.options}>
+            <img
+              onClick={goToHome}
+              src="icons/home.svg"
+              alt="home"
+            />
+            <img
+              onClick={goToClassification}
+              src="icons/podium.svg"
+              alt="classificação"
+            />
+          </div>
+        </div>
+      }
+    </>
   );
 }
