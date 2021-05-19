@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
-import { api, apiUsers, getUser } from '../api';
+import { getUserGitHub, apiUsers, getUser, createChallengesData } from '../api';
 import styles from '../styles/pages/Login.module.css';
 import { UserInfoContext } from '../contexts/UserInfoContext';
 
@@ -14,7 +14,7 @@ export default function Login() {
   async function signIn(event) {
     event.preventDefault();
 
-    await api.get(username)
+    await getUserGitHub.get(username)
       .then((response) => {
         console.log('response: ', response.data);
 
@@ -28,6 +28,7 @@ export default function Login() {
             const { name, id } = response.data;
             insertUser(username, name, id);
             storeInfoUser(name, username);
+            createChallengesData(id);
           });
 
         setIsLoading(true);

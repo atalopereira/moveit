@@ -16,23 +16,24 @@ async function connectToDatabase(uri: string) {
   const dbName = new URL(uri).pathname.substr(1);
 
   const db = client.db(dbName);
-  
+
   cachedDb = db;
 
   return db;
 }
 
 export default async (request: VercelRequest, response: VercelResponse) => {
-  const { username, name, id } = request.body;
-  
+  const { id, level, experience, challengesCompleted } = request.body;
+
   const db = await connectToDatabase(process.env.MONGODB_URI);
-  const collection = db.collection('users');
+  const collection = db.collection('challenges');
 
   await collection.insertOne({
     _id: id,
-    username,
-    name
+    level,
+    experience,
+    challengesCompleted
   });
 
-  return response.status(201).json({ Ok: true });
+  return response.status(201).json({ok : true});
 }
