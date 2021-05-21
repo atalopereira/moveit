@@ -18,6 +18,14 @@ export async function createChallengesData(
   experience = 0,
   challengesCompleted = 0
 ){
+  return await axios.post('api/insertChallenges', { id, level, experience, challengesCompleted});
+}
 
-  return await axios.post('api/insertChallengesData', { id, level, experience, challengesCompleted});
+export async function updateChallengesData(
+  id: number,
+  level = 0,
+  experience = 0,
+  challengesCompleted = 0
+){
+  return await axios.post('api/updateChallenges', { id, level, experience, challengesCompleted});
 }

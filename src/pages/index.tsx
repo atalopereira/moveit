@@ -22,12 +22,12 @@ export default function Login() {
         getUser(username)
           .then((response) => {
             const { _id: id, name, username } = response.data.result;
-            storeInfoUser(name, username);
+            storeInfoUser(id, name, username);
           })
           .catch(() => {
             const { name, id } = response.data;
             insertUser(username, name, id);
-            storeInfoUser(name, username);
+            storeInfoUser(id, name, username);
             createChallengesData(id);
           });
 
