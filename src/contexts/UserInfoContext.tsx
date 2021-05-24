@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import Cookie, { set } from 'js-cookie';
+import Cookie from 'js-cookie';
 
 interface UserInfoContextData {
   id: number
@@ -20,8 +20,8 @@ export function UserInfoProvider({ children } : UserInfoProviderProps) {
   const [id, setId] = useState(0);
 
   useEffect(() => {
-    const nameCookie = Cookie.get('moveit-name');
-    const loginCookie = Cookie.get('moveit-login');
+    const nameCookie = Cookie.get('moveitName');
+    const loginCookie = Cookie.get('moveitLogin');
     
     if (name != nameCookie) {
       if (nameCookie === "null") {
@@ -38,9 +38,9 @@ export function UserInfoProvider({ children } : UserInfoProviderProps) {
 
 
   function storeInfoUser(id: number, name: string, login: string) {
-    Cookie.set('moveit-name', name);
-    Cookie.set('moveit-login', login);
-    Cookie.set('moveit-id', String(id));
+    Cookie.set('moveitName', name);
+    Cookie.set('moveitLogin', login);
+    Cookie.set('moveitId', String(id));
     setName(name);
     setLogin(login);
     setId(id);

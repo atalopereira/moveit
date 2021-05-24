@@ -40,7 +40,7 @@ export function ChallengesProvider({
   
   const { id } = useContext(UserInfoContext);
 
-  const [level, setLevel] = useState(rest.level ?? 1);
+  const [level, setLevel] = useState(rest.level ?? 0);
   const [currentExperience, setCurrentExperience] = useState(rest.currentExperience ?? 0);
   const [challengesCompleted, setChallengesCompleted] = useState(rest.challengesCompleted ?? 0);
   const [activeChallenge, setActiveChallenge] = useState(null);

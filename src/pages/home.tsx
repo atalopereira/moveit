@@ -13,7 +13,7 @@ import { ChallengeBox } from "../components/ChallengeBox";
 import styles from '../styles/pages/Home.module.css';
 import { CountdownProvider } from '../contexts/CountdownContext';
 import { ChallengesProvider } from '../contexts/ChallengesContext';
-import { UserInfoContext } from '../contexts/UserInfoContext';
+import { getChallengesData } from '../api';
 
 interface HomeProps {
   level: number;
@@ -25,7 +25,7 @@ export default function Home(props: HomeProps) {
   const router = useRouter();
 
   useEffect(() => {
-    const token = Cookie.get('moveit-name');
+    const token = Cookie.get('moveitName');
 
     if (!token) {
       router.replace('/');
@@ -63,14 +63,22 @@ export default function Home(props: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { moveitId } = ctx.req.cookies;
+  const id = Number(moveitId);
 
-  const { level, currentExperience, challengesCompleted } = ctx.req.cookies;
+  const result = await getChallengesData(id)
+    .then((response) => {
+      return response.data.result;
+    })
+    .catch(() => {
+      return {}
+    });
 
   return {
     props: {
-      level: Number(level),
-      currentExperience: Number(currentExperience),
-      challengesCompleted: Number(challengesCompleted)
+      level: Number(result.level),
+      currentExperience: Number(result.experience),
+      challengesCompleted: Number(result.challengesCompleted)
     }
   }
 }

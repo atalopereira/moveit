@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
-import { getUserGitHub, apiUsers, getUser, createChallengesData } from '../api';
+import {
+  getUserGitHub, createUser, getUser, createChallengesData
+} from '../api';
 import styles from '../styles/pages/Login.module.css';
 import { UserInfoContext } from '../contexts/UserInfoContext';
 
@@ -18,7 +20,7 @@ export default function Login() {
       .then((response) => {
         console.log('response: ', response.data);
 
-        // If there exist username, use data, otherwise, store it in the DB 
+        // If there exist username in DB, use data, otherwise, store it in the DB
         getUser(username)
           .then((response) => {
             const { _id: id, name, username } = response.data.result;
@@ -26,7 +28,7 @@ export default function Login() {
           })
           .catch(() => {
             const { name, id } = response.data;
-            insertUser(username, name, id);
+            createUser(username, name, id);
             storeInfoUser(id, name, username);
             createChallengesData(id);
           });
@@ -41,10 +43,6 @@ export default function Login() {
       .catch((error) => {
         setErrorUser(true);
       });
-  }
-
-  async function insertUser(username: string, name: string, id: number) {
-    await apiUsers(username, name, id);
   }
 
   function handleChangeUsername(event: { target: HTMLInputElement }) {
