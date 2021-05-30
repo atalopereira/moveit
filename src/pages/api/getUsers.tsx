@@ -26,7 +26,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   const db = await connectToDatabase(process.env.MONGODB_URI);
   const collection = db.collection('users');
   const result = await collection.findOne({
-    username: request.query[0]
+    _id: Number(request.query[0])
   });
 
   if (result === null) {

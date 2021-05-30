@@ -23,20 +23,26 @@ async function connectToDatabase(uri: string) {
 }
 
 export default async (request: VercelRequest, response: VercelResponse) => {
-  const { id, level, experience, challengesCompleted } = request.body;
+  const { id, level, experience, challengesCompleted, amount } = request.body;
 
   const db = await connectToDatabase(process.env.MONGODB_URI);
-  const collection = db.collection('challenges');
+  const collection = db.collection('users');
 
   // $max: Only updates the field if the specified value is greater than the existing field value.
   await collection.updateOne(
     {_id: id},
-    {$max: {
-      level,
-      experience,
-      challengesCompleted
+    {
+      $max: {
+      "challenges.level": level,
+      "challenges.challengesCompleted": challengesCompleted
+      },
+      $set: {
+        "challenges.experience": experience
+      },
+      $inc: {
+        "challenges.totalExperience": amount
       }
-    }
+    },
   );
 
   return response.status(201).json({ok: true});

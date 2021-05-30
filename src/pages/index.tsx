@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import {
-  getUserGitHub, createUser, getUser, createChallengesData
+  getUserGitHub, createUser, getUser
 } from '../api';
 import styles from '../styles/pages/Login.module.css';
 import { UserInfoContext } from '../contexts/UserInfoContext';
@@ -18,10 +18,11 @@ export default function Login() {
 
     await getUserGitHub.get(username)
       .then((response) => {
+        const { id } = response.data;
         console.log('response: ', response.data);
 
-        // If there exist username in DB, use data, otherwise, store it in the DB
-        getUser(username)
+        // If there exist user in DB, use data, otherwise, store it in the DB
+        getUser(id)
           .then((response) => {
             const { _id: id, name, username } = response.data.result;
             storeInfoUser(id, name, username);
@@ -30,7 +31,6 @@ export default function Login() {
             const { name, id } = response.data;
             createUser(username, name, id);
             storeInfoUser(id, name, username);
-            createChallengesData(id);
           });
 
         setIsLoading(true);

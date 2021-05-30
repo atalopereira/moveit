@@ -31,7 +31,13 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   await collection.insertOne({
     _id: id,
     username,
-    name
+    name,
+    challenges: {
+      level: 1,
+      experience: 0,
+      challengesCompleted: 0,
+      totalExperience: 0
+    }
   });
 
   return response.status(201).json({ Ok: true });

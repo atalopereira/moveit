@@ -40,7 +40,7 @@ export function ChallengesProvider({
   
   const { id } = useContext(UserInfoContext);
 
-  const [level, setLevel] = useState(rest.level ?? 0);
+  const [level, setLevel] = useState(rest.level ?? 1);
   const [currentExperience, setCurrentExperience] = useState(rest.currentExperience ?? 0);
   const [challengesCompleted, setChallengesCompleted] = useState(rest.challengesCompleted ?? 0);
   const [activeChallenge, setActiveChallenge] = useState(null);
@@ -62,7 +62,7 @@ export function ChallengesProvider({
     setLevel(level + 1);
     setIsLevelUpModalOpen(true);
 
-    updateChallengesData(id, level + 1, 0, 0);
+    updateChallengesData(id, level + 1, 0, 0, 0);
   }
 
   function closeLevelUpModal() {
@@ -106,7 +106,7 @@ export function ChallengesProvider({
     setActiveChallenge(null);
     setChallengesCompleted(challengesCompleted + 1);
 
-    updateChallengesData(id, 0, finalExperience, challengesCompleted + 1);
+    updateChallengesData(id, 0, finalExperience, challengesCompleted + 1, amount);
   }
 
   return(

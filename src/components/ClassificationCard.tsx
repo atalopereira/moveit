@@ -1,6 +1,13 @@
 import styles from '../styles/components/ClassificationCard.module.css';
 
-export default function ClassficationCard() {
+interface ClassificationCardProps {
+  level: number;
+  challengesCompleted: number;
+  experience: number
+}
+
+export default function ClassficationCard({level, challengesCompleted, experience}: ClassificationCardProps) {
+  console.log('classification: ', {level, challengesCompleted, experience});
   return (
     <div className={styles.classification}>
       <p>1</p>
@@ -11,16 +18,16 @@ export default function ClassficationCard() {
             <strong>Átalo Pereira</strong>
             <p>
               <img src="icons/level.svg" alt="level"/>
-              level 1
+              {`level ${level}`}
             </p>
           </div>
         </div>
-        <p>
-          <p>127</p> completados
-        </p>
-        <p>
-          <p>154000</p> xp
-        </p>
+        <span>
+          <p>{challengesCompleted}</p> completados
+        </span>
+        <span>
+          <p>{experience}</p> xp
+        </span>
       </div>
     </div>
   );

@@ -22,6 +22,7 @@ export function UserInfoProvider({ children } : UserInfoProviderProps) {
   useEffect(() => {
     const nameCookie = Cookie.get('moveitName');
     const loginCookie = Cookie.get('moveitLogin');
+    const idCookie = Number(Cookie.get('moveitId'));
     
     if (name != nameCookie) {
       if (nameCookie === "null") {
@@ -33,6 +34,10 @@ export function UserInfoProvider({ children } : UserInfoProviderProps) {
 
     if (login != loginCookie) {
       setLogin(loginCookie);
+    }
+
+    if (id != idCookie) {
+      setId(idCookie);
     }
   }, []);
 

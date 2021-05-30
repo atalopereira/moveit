@@ -4,6 +4,7 @@ import { GetServerSideProps } from 'next';
 import Cookie from 'js-cookie';
 import { useRouter } from 'next/router';
 
+import { getUser } from '../api';
 import { CompletedChallenges } from "../components/CompletedChallenges";
 import { Countdown } from "../components/Countdown";
 import { ExperienceBar } from "../components/ExperienceBar";
@@ -13,7 +14,6 @@ import { ChallengeBox } from "../components/ChallengeBox";
 import styles from '../styles/pages/Home.module.css';
 import { CountdownProvider } from '../contexts/CountdownContext';
 import { ChallengesProvider } from '../contexts/ChallengesContext';
-import { getChallengesData } from '../api';
 
 interface HomeProps {
   level: number;
@@ -66,7 +66,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { moveitId } = ctx.req.cookies;
   const id = Number(moveitId);
 
-  const result = await getChallengesData(id)
+  const result = await getUser(id)
     .then((response) => {
       return response.data.result;
     })
@@ -74,11 +74,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       return {}
     });
 
+  const { level, experience, challengesCompleted } = result.challenges;
+
   return {
     props: {
-      level: Number(result.level),
-      currentExperience: Number(result.experience),
-      challengesCompleted: Number(result.challengesCompleted)
+      level: Number(level),
+      currentExperience: Number(experience),
+      challengesCompleted: Number(challengesCompleted)
     }
   }
 }
