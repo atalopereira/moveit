@@ -24,12 +24,12 @@ async function connectToDataBase(uri: string) {
 
 export default async (request: VercelRequest, response: VercelResponse) => {
   const db = await connectToDataBase(process.env.MONGODB_URI);
-  const collection = db.collection('challenges');
-  const result = await collection.findOne({ _id: Number(request.query[0]) });
-  
+  const collection = db.collection('users');
+  const result = await collection.find({}).sort({ "challenges.totalExperience": -1 }).toArray();
+
   if (result === null) {
     return response.status(404).json({});
   }
 
-  return response.status(200).json({ result });
+  return response.status(200).json(result);
 }

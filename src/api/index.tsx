@@ -12,6 +12,14 @@ export async function getUser(id: number) {
   return await axios.get('http://localhost:3000/api/getUsers', { params: id });
 }
 
+export async function getAllUsers() {
+  return await axios.get('http://localhost:3000/api/getAllUsers');
+}
+
+export async function getUsersOrderXp() {
+  return await axios.get('http://localhost:3000/api/getUsersOrderXp');
+}
+
 export async function updateChallengesData(
   id: number,
   level = 0,
@@ -26,8 +34,4 @@ export async function updateChallengesData(
 
 export async function getChallengesData(id: number) {
   return await axios.get('http://localhost:3000/api/getChallenges', { params: id });
-}
-
-export async function getAllChallengesData() {
-  return await axios.get('http://localhost:3000/api/getAllChallenges');
 }

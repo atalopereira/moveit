@@ -1,13 +1,20 @@
 import styles from  '../styles/pages/ClassificationUsers.module.css';
 import ClassificationCard from '../components/ClassificationCard';
-import { getAllChallengesData } from '../api';
+import { getUsersOrderXp } from '../api';
 import { GetServerSideProps } from 'next';
+
+interface ChallengesItem {
+  level: number,
+  experience: number,
+  challengesCompleted: number,
+  totalExperience: number,
+}
 
 interface ClassificationItem {
   _id: number;
-  level: number;
-  experience: number;
-  challengesCompleted: number;
+  username: string;
+  name: string;
+  challenges: ChallengesItem;
 }
 
 interface ClassificationProps {
@@ -26,35 +33,39 @@ export default function classificationUsers(props: ClassificationProps) {
           <span>Experiência</span>
         </div>
         {props &&
-          Object.keys(props).map((index, item) => (
-            <ClassificationCard
-              key={index}
-              level={props[item].level}
-              challengesCompleted={props[item].challengesCompleted}
-              experience={props[item].experience}
-            />
-          ))
+          Object.keys(props).map((index, item) => {
+            const { level, challengesCompleted, totalExperience } = props[item].challenges
+            const { username, name } = props[item]
+
+            return(
+              <ClassificationCard
+                key={index}
+                level={level}
+                challengesCompleted={challengesCompleted}
+                totalExperience={totalExperience}
+                username={username}
+                name={name}
+                position={item+1}
+              />
+            )
+          })
         }
       </div>
     </div>
   );
 }
 
-// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   
-//   const resultChallenges = await getAllChallengesData()
-//     .then((responseChallenges) => {
-      
-//       return responseChallenges.data;
+  const resultChallenges = await getUsersOrderXp()
+    .then((responseChallenges) => {
+      return responseChallenges.data;
+    })
+    .catch(() => {
+      return {}
+    });
 
-//     })
-//     .catch(() => {
-//       return {}
-//     });
-    
-
-  
-//   return {
-//     props: { ...resultChallenges }
-//   }
-// }
+  return {
+    props: { ...resultChallenges }
+  }
+}

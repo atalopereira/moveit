@@ -24,8 +24,9 @@ async function connectToDataBase(uri: string) {
 
 export default async (request: VercelRequest, response: VercelResponse) => {
   const db = await connectToDataBase(process.env.MONGODB_URI);
-  const collection = db.collection('challenges');
+  const collection = db.collection('users');
   const result = await collection.find({}).toArray();
+
   if (result === null) {
     return response.status(404).json({});
   }
