@@ -35,3 +35,7 @@ export async function updateChallengesData(
 export async function getChallengesData(id: number) {
   return await axios.get('http://localhost:3000/api/getChallenges', { params: id });
 }
+
+export async function setHistory(id: number, experience: number) {
+  return await axios.post('http://localhost:3000/api/registerHistory', { id, experience });
+}

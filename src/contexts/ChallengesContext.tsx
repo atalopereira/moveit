@@ -2,7 +2,7 @@ import { createContext, useState, ReactNode, useEffect, useContext } from "react
 import Cookies from 'js-cookie';
 import challenges from '../../challenges.json';
 import { LevelUpModal } from "../components/LevelUpModal";
-import { updateChallengesData } from '../api';
+import { updateChallengesData, setHistory } from '../api';
 import { UserInfoContext } from "./UserInfoContext";
 
 interface challenge {
@@ -106,6 +106,7 @@ export function ChallengesProvider({
     setActiveChallenge(null);
     setChallengesCompleted(challengesCompleted + 1);
 
+    setHistory(id, amount);
     updateChallengesData(id, 0, finalExperience, challengesCompleted + 1, amount);
   }
 
