@@ -38,7 +38,15 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       challengesCompleted: 0,
       totalExperience: 0
     },
-    history: {}
+    history: {
+      segunda: 0,
+      terça: 0,
+      quarta: 0,
+      quinta: 0,
+      sexta: 0,
+      sábado: 0,
+      domingo: 0
+    }
   });
 
   return response.status(201).json({ Ok: true });

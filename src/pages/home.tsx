@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import Cookie from 'js-cookie';

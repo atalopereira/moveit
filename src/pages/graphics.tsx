@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Highcharts from 'highcharts';
+import { GetServerSideProps } from 'next';
 import HighchartsReact from 'highcharts-react-official';
 import style from '../styles/pages/Graphics.module.css';
+import { getUser } from '../api';
 
-const options: Highcharts.Options = {
+interface GraphicProps {
+  segunda: number,
+  terça: number,
+  quarta: number,
+  quinta: number,
+  sexta: number,
+  sábado: number,
+  domingo: number
+}
+
+const options = (data: number[]) => ({
   chart: {
-    type: 'column'
+    type: 'column',
+    marginTop: 20
   },
 
   title: {
-    text: 'Progresso semanal',
+    text: '',
     style: {
       fontWeight: 'bold'
     }
@@ -33,6 +46,7 @@ const options: Highcharts.Options = {
   },
 
   yAxis: {
+    softMax: 30,
     title: {
       text: 'Experiência',
       margin: 20,
@@ -74,18 +88,39 @@ const options: Highcharts.Options = {
 
   series: [{
     type: 'column',
-    data: [29, 71, 106, 129, 144, 176, 135]
+    data
   }]
-}
+})
 
-export default function Graphics() {
+
+export default function Graphics(props: GraphicProps) {
+  const [xpWeek, setXpWeek] = useState(Object.values(props));
   return(
     <div className={style.container}>
-      <h1>Graficos</h1>
+      <h1>Progresso semanal</h1>
       <HighchartsReact
         highcharts={Highcharts}
-        options={options}
+        options={options(xpWeek)}
       />
     </div>
   );
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { moveitId } = ctx.req.cookies;
+  const id = Number(moveitId);
+
+  const result = await getUser(id)
+    .then((response) => {
+      return response.data.result.history
+    })
+    .catch(() => {
+      return {}
+    });
+  
+  return {
+    props: {
+      ...result
+    }
+  }
 }
