@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useContext, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import {
   getUserGitHub, createUser, getUser
 } from '../api';
@@ -8,12 +8,11 @@ import { UserInfoContext } from '../contexts/UserInfoContext';
 
 export default function Login() {
   const router = useRouter();
-  const { storeInfoUser  } = useContext(UserInfoContext);
+  const { isLoading, storeInfoUser, changeLoanding  } = useContext(UserInfoContext);
   const [username, setUsername] = useState('');
   const [errorUser, setErrorUser] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
-  async function signIn(event) {
+  async function signIn(event: FormEvent) {
     event.preventDefault();
 
     await getUserGitHub.get(username)
@@ -33,11 +32,10 @@ export default function Login() {
             storeInfoUser(id, name, username);
           });
 
-        setIsLoading(true);
+        changeLoanding();
 
         setTimeout(() => {
           router.push('/home');
-          setIsLoading(false);
         }, 2000);
       })
       .catch((error) => {

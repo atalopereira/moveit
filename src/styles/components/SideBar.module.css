@@ -31,3 +31,16 @@
 .options img:hover {
   cursor: pointer;
 }
+
+.exitOption {
+  display: flex;
+  justify-content: center;
+}
+
+.exitOption img {
+  width: 2rem;
+}
+
+.exitOption img:hover {
+  cursor: pointer;
+}

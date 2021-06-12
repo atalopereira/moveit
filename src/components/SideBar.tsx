@@ -10,19 +10,20 @@ interface SideBarProps {
 export default function SideBar(props: SideBarProps) {
   const route = useRouter();
 
-  function goToGraphics(event) {
-    event.preventDefault();
+  function goToGraphics() {
     route.push('/graphics');
   }
 
-  function goToHome(event) {
-    event.preventDefault();
+  function goToHome() {
     route.push('/home');
   }
 
-  function goToClassification(event) {
-    event.preventDefault();
+  function goToClassification() {
     route.push('/classificationUsers');
+  }
+
+  function goToLogin() {
+    route.push('/');
   }
 
   return (
@@ -46,6 +47,13 @@ export default function SideBar(props: SideBarProps) {
             <img
               onClick={goToClassification}
               src="icons/podium.svg"
+              alt="classificação"
+            />
+          </div>
+          <div className={style.exitOption}>
+            <img
+              onClick={goToLogin}
+              src="icons/exit.svg"
               alt="classificação"
             />
           </div>

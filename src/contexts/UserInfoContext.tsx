@@ -5,7 +5,9 @@ interface UserInfoContextData {
   id: number
   name: string;
   login: string;
+  isLoading: boolean;
   storeInfoUser: (id: number, name: string, login: string) => void;
+  changeLoanding: () => void;
 }
 
 interface UserInfoProviderProps {
@@ -18,6 +20,7 @@ export function UserInfoProvider({ children } : UserInfoProviderProps) {
   const [name, setName] = useState(null);
   const [login, setLogin] = useState(null);
   const [id, setId] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const nameCookie = Cookie.get('moveitName');
@@ -51,13 +54,19 @@ export function UserInfoProvider({ children } : UserInfoProviderProps) {
     setId(id);
   };
 
+  function changeLoanding() {
+    setIsLoading(!isLoading);
+  }
+
   return (
     <UserInfoContext.Provider
       value={{
         id,
         name,
         login,
+        isLoading,
         storeInfoUser,
+        changeLoanding
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import Cookie from 'js-cookie';
@@ -14,6 +14,7 @@ import { ChallengeBox } from "../components/ChallengeBox";
 import styles from '../styles/pages/Home.module.css';
 import { CountdownProvider } from '../contexts/CountdownContext';
 import { ChallengesProvider } from '../contexts/ChallengesContext';
+import { UserInfoContext } from '../contexts/UserInfoContext';
 
 interface HomeProps {
   level: number;
@@ -23,12 +24,15 @@ interface HomeProps {
 
 export default function Home(props: HomeProps) {
   const router = useRouter();
+  const { isLoading, changeLoanding } = useContext(UserInfoContext);
 
   useEffect(() => {
     const token = Cookie.get('moveitName');
 
     if (!token) {
       router.replace('/');
+    } else if (isLoading) {
+      changeLoanding();
     }
   }, []);
   
