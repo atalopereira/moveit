@@ -1,25 +1,36 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useRouter } from 'next/router';
 
 import style from '../styles/components/SideBar.module.css';
+import { UserInfoContext } from '../contexts/UserInfoContext';
 
 interface SideBarProps {
   currentRoute: string
 }
 
 export default function SideBar(props: SideBarProps) {
+  const { changeLoadingPage } = useContext(UserInfoContext);
   const route = useRouter();
 
   function goToGraphics() {
-    route.push('/graphics');
+    if (route.pathname !== '/graphics') {
+      changeLoadingPage();
+      route.push('/graphics');
+    }
   }
 
   function goToHome() {
-    route.push('/home');
+    if (route.pathname !== '/home') {
+      changeLoadingPage();
+      route.push('/home');
+    }
   }
 
   function goToClassification() {
-    route.push('/classificationUsers');
+    if (route.pathname !== '/classificationUsers') {
+      changeLoadingPage();
+      route.push('/classificationUsers'); 
+    }
   }
 
   function goToLogin() {

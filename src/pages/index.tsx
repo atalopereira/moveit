@@ -3,12 +3,13 @@ import { FormEvent, useContext, useState } from 'react';
 import {
   getUserGitHub, createUser, getUser
 } from '../api';
+import Loader from '../components/Loader';
 import styles from '../styles/pages/Login.module.css';
 import { UserInfoContext } from '../contexts/UserInfoContext';
 
 export default function Login() {
   const router = useRouter();
-  const { isLoading, storeInfoUser, changeLoanding  } = useContext(UserInfoContext);
+  const { isLoadingLogin, storeInfoUser, changeLoandingLogin  } = useContext(UserInfoContext);
   const [username, setUsername] = useState('');
   const [errorUser, setErrorUser] = useState(false);
 
@@ -32,7 +33,7 @@ export default function Login() {
             storeInfoUser(id, name, username);
           });
 
-        changeLoanding();
+        changeLoandingLogin();
 
         setTimeout(() => {
           router.push('/home');
@@ -65,7 +66,7 @@ export default function Login() {
 
           <form onSubmit={signIn}>
             <div className={styles.wrapLogin}>
-              {isLoading ?
+              {isLoadingLogin ?
                 <>
                   <input
                     type="text"
@@ -74,7 +75,9 @@ export default function Login() {
                     disabled
                   />
                   <button disabled>
-                    <div className={styles.loader}/>
+                    <Loader
+                      background={false}
+                    />
                   </button>
                 </>
               :

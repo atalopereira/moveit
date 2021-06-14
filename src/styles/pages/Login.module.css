@@ -90,19 +90,3 @@
   background-color: var(--blue);
   cursor: default;
 }
-
-.loader {
-  animation: is-rotating 1s linear infinite;
-  width: 40px;
-  height: 40px;
-  border: 5px solid transparent;
-  border-top-color: var(--green); 
-  border-right-color: var(--green); 
-  border-radius: 50%;
-}
-
-@keyframes is-rotating {
-  to {
-    transform: rotate(1turn);
-  }
-}

@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import Highcharts from 'highcharts';
+import React, { useContext, useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
+import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import style from '../styles/pages/Graphics.module.css';
 import { getUser } from '../api';
+import { UserInfoContext } from '../contexts/UserInfoContext';
+import Loader from '../components/Loader';
 
 interface GraphicProps {
   segunda: number,
@@ -94,15 +96,30 @@ const options = (data: number[]) => ({
 
 
 export default function Graphics(props: GraphicProps) {
+  const { isLoadingPage, changeLoadingPage } = useContext(UserInfoContext);
   const [xpWeek, setXpWeek] = useState(Object.values(props));
+  
+  useEffect(() => {
+    if (isLoadingPage) {
+      changeLoadingPage();
+    }
+  }, []);
+  
   return(
-    <div className={style.container}>
-      <h1>Progresso semanal</h1>
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={options(xpWeek)}
-      />
-    </div>
+    <>
+      {isLoadingPage &&
+        <Loader
+          background={true}
+        />
+      }
+      <div className={style.container}>
+        <h1>Progresso semanal</h1>
+        <HighchartsReact
+          highcharts={Highcharts}
+          options={options(xpWeek)}
+        />
+      </div>
+    </>
   );
 }
 
