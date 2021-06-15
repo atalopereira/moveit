@@ -83,3 +83,18 @@
 .countdownButton:disabled img {
   margin-left: 1rem;
 }
+
+@media (max-width: 1400px) {
+  .countdownContainer > div {
+    font-size: 6.5rem;
+  }
+
+  .countdownContainer > span {
+    font-size: 5.25rem;
+  }
+
+  .countdownButton {
+    height: 4.5rem;
+    font-size: 1.25rem;
+  }
+}
