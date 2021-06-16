@@ -19,7 +19,6 @@ export default function Login() {
     await getUserGitHub.get(username)
       .then((response) => {
         const { id } = response.data;
-        console.log('response: ', response.data);
 
         // If there exist user in DB, use data, otherwise, store it in the DB
         getUser(id)

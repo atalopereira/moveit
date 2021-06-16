@@ -19,7 +19,7 @@ import { UserInfoContext } from '../contexts/UserInfoContext';
 
 interface HomeProps {
   level: number;
-  currentExperience: number;
+  experience: number;
   challengesCompleted: number;
 }
 
@@ -45,7 +45,7 @@ export default function Home(props: HomeProps) {
   return (
     <ChallengesProvider
       level={props.level}
-      currentExperience={props.currentExperience}
+      currentExperience={props.experience}
       challengesCompleted={props.challengesCompleted}
     >
       {isLoadingPage &&
@@ -88,13 +88,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       return {}
     });
 
-  const { level, experience, challengesCompleted } = result.challenges;
-
   return {
     props: {
-      level: Number(level),
-      currentExperience: Number(experience),
-      challengesCompleted: Number(challengesCompleted)
+      ...result.challenges
     }
   }
 }

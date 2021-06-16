@@ -28,22 +28,34 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   const db = await connectToDatabase(process.env.MONGODB_URI);
   const collection = db.collection('users');
 
-  // $max: Only updates the field if the specified value is greater than the existing field value.
-  await collection.updateOne(
-    {_id: id},
-    {
-      $max: {
-      "challenges.level": level,
-      "challenges.challengesCompleted": challengesCompleted
+  if (level !== 0) {
+    await collection.updateOne(
+      {_id: id},
+      {
+        $max: {
+        "challenges.level": level,
+        },
       },
-      $set: {
-        "challenges.experience": experience
+    );
+  } else {
+    // $max: Only updates the field if the specified value is greater than the existing field value.
+    await collection.updateOne(
+      {_id: id},
+      {
+        $max: {
+        "challenges.level": level,
+        "challenges.challengesCompleted": challengesCompleted
+        },
+        $set: {
+          "challenges.experience": experience
+        },
+        $inc: {
+          "challenges.totalExperience": amount
+        }
       },
-      $inc: {
-        "challenges.totalExperience": amount
-      }
-    },
-  );
+    );
+  }
+  
 
   return response.status(201).json({ok: true});
 } 
