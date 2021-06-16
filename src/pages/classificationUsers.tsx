@@ -49,24 +49,26 @@ export default function classificationUsers(props: ClassificationProps) {
             <span>Desafios</span>
             <span>Experiência</span>
           </div>
-          {props &&
-            Object.keys(props).map((index, item) => {
-              const { level, challengesCompleted, totalExperience } = props[item].challenges
-              const { username, name } = props[item]
+          <div className={styles.wrapperClassificationCard}>
+            {props &&
+              Object.keys(props).map((index, item) => {
+                const { level, challengesCompleted, totalExperience } = props[item].challenges
+                const { username, name } = props[item]
 
-              return(
-                <ClassificationCard
-                  key={index}
-                  level={level}
-                  challengesCompleted={challengesCompleted}
-                  totalExperience={totalExperience}
-                  username={username}
-                  name={name}
-                  position={item+1}
-                />
-              )
-            })
-          }
+                return(
+                  <ClassificationCard
+                    key={index}
+                    level={level}
+                    challengesCompleted={challengesCompleted}
+                    totalExperience={totalExperience}
+                    username={username}
+                    name={name}
+                    position={item+1}
+                  />
+                )
+              })
+            }
+          </div>
         </div>
       </div>
     </>
