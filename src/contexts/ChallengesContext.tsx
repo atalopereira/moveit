@@ -37,7 +37,7 @@ export function ChallengesProvider({
   children,
   ...rest
 } : ChallengesProviderProps) {
-  const host = window.location.host;
+  const host = global.window && global.window.location.host;
   const { id } = useContext(UserInfoContext);
 
   const [level, setLevel] = useState(rest.level ?? 1);

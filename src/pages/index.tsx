@@ -9,7 +9,7 @@ import { UserInfoContext } from '../contexts/UserInfoContext';
 
 export default function Login() {
   const router = useRouter();
-  const host = window.location.host;
+  const host = global.window && global.window.location.host;
   const { isLoadingLogin, storeInfoUser, changeLoandingLogin  } = useContext(UserInfoContext);
   const [username, setUsername] = useState('');
   const [errorUser, setErrorUser] = useState(false);
