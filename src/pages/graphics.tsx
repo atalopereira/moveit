@@ -125,9 +125,10 @@ export default function Graphics(props: GraphicProps) {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { moveitId } = ctx.req.cookies;
+  const { host } = ctx.req.headers;
   const id = Number(moveitId);
 
-  const result = await getUser(id)
+  const result = await getUser(id, host)
     .then((response) => {
       return response.data.result.history
     })

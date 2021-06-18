@@ -9,6 +9,7 @@ import { UserInfoContext } from '../contexts/UserInfoContext';
 
 export default function Login() {
   const router = useRouter();
+  const host = window.location.host;
   const { isLoadingLogin, storeInfoUser, changeLoandingLogin  } = useContext(UserInfoContext);
   const [username, setUsername] = useState('');
   const [errorUser, setErrorUser] = useState(false);
@@ -21,14 +22,14 @@ export default function Login() {
         const { id } = response.data;
 
         // If there exist user in DB, use data, otherwise, store it in the DB
-        getUser(id)
+        getUser(id, host)
           .then((response) => {
             const { _id: id, name, username } = response.data.result;
             storeInfoUser(id, name, username);
           })
           .catch(() => {
             const { name, id } = response.data;
-            createUser(username, name, id);
+            createUser(username, name, id, host);
             storeInfoUser(id, name, username);
           });
 

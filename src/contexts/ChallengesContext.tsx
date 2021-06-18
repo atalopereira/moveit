@@ -37,7 +37,7 @@ export function ChallengesProvider({
   children,
   ...rest
 } : ChallengesProviderProps) {
-  
+  const host = window.location.host;
   const { id } = useContext(UserInfoContext);
 
   const [level, setLevel] = useState(rest.level ?? 1);
@@ -62,7 +62,7 @@ export function ChallengesProvider({
     setLevel(level + 1);
     setIsLevelUpModalOpen(true);
 
-    updateChallengesData(id, level + 1, 0, 0, 0);
+    updateChallengesData(id, level + 1, 0, 0, 0, host);
   }
 
   function closeLevelUpModal() {
@@ -106,8 +106,8 @@ export function ChallengesProvider({
     setActiveChallenge(null);
     setChallengesCompleted(challengesCompleted + 1);
 
-    setHistory(id, amount);
-    updateChallengesData(id, 0, finalExperience, challengesCompleted + 1, amount);
+    setHistory(id, amount, host);
+    updateChallengesData(id, 0, finalExperience, challengesCompleted + 1, amount, host);
   }
 
   return(

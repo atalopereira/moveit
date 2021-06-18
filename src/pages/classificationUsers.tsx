@@ -76,8 +76,8 @@ export default function classificationUsers(props: ClassificationProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  
-  const resultChallenges = await getUsersOrderXp()
+  const { host } = ctx.req.headers;
+  const resultChallenges = await getUsersOrderXp(host)
     .then((responseChallenges) => {
       return responseChallenges.data;
     })
