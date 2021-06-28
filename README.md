@@ -2,26 +2,16 @@
   <img alt="move.it" title="move.it" src=".github/logo.png" />
 </h1>
 
-<p align="center">
-  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-layout">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-como-executar">Como executar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-licença">Licença</a>
-</p>
+## 💻 Telas do sistema
 
-<p align="center">
-  <img alt="License" src="https://img.shields.io/static/v1?label=license&message=MIT&color=8257E5&labelColor=000000">
+### Home
+<img alt="home" title="home" src=".github/home.png" />
 
- <img src="https://img.shields.io/static/v1?label=NLW&message=04&color=8257E5&labelColor=000000" alt="NLW 04" />
-</p>
+### Classificação do usuário
+<img alt="classification" title="classification" src=".github/classification.png" />
 
-<!-- <br>
-
-<p align="center">
-  <img alt="Happy" src=".github/moveit.png" width="100%">
-</p> -->
-
+### Progresso semanal do usuário
+<img alt="progress" title="progress" src=".github/progress.png" />
 
 ## ✨ Tecnologias
 
@@ -29,12 +19,39 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - React
 - Next.js
 - TypeScript
+- Mongo DB
+- Highcharts
 
-## 💻 Projeto
 
-O move.it é um aplicativo que une a técnica Pomodoro com a realização de exercícios físicos, ideal para quem passa muito tempo na frente do computador.
+## 👨‍💻 Projeto
 
-Esse projeto foi desenvolvido em um evento online da Rocketseat chamado nlw#4.
+O move it é um aplicativo que une a técnica pomodoro com a realização de exercícios físicos, ideal para quem passa muito tempo na frente do computador.
+
+Algumas funcionalidades desse projeto foi desenvolvido em um evento online da Rocketseat chamado nlw#4.
+
+## 🤔 Como funciona?
+
+O sistema emite um alerta a cada 25 minutos, desafiando o usuário a fazer um determinado exercício físico, caso o usuário indique que completou o desafio, é contabilizado alguns pontos, caso contrário, não ganha pontos.
+
+A medida que o usuário completa os desafios e ganha pontos, ele sobe de nível.
+
+## ✔️ Funcionalidades
+
+Essas funcionalidades foram desenvolvidas no evento:
+
+- Cronômetro para marcar o tempo entre um exercício e outro.
+- Alerta de um novo desafio;
+- Contabilização de pontos;
+- Contabilização de níveis.
+
+## ✔️➕ Funcionalidades adicionais
+
+Essas funcionalidades foram desenvolvidas por mim, após o evento:
+
+- Conexão com o Mongo DB (Banco de dados);
+- Tela de login;
+- Progresso semanal através de um gráfico de barras;
+- Classificação geral do usuário.
 
 ## 🖌️ Layout
 
