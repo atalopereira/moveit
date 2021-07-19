@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { ChallengesContext } from "./ChallengesContext";
 
@@ -6,8 +7,10 @@ interface CountdownContextData {
   seconds: number;
   hasFinished: boolean;
   isActive: boolean;
+  selectMinutes: number;
   startCountdown: () => void;
-  resetCountdown: () => void
+  resetCountdown: () => void;
+  changeMinutes: (minutes: number) => void;
 }
 
 interface CountdownProviderProps {
@@ -21,12 +24,19 @@ let countdownTimeout: NodeJS.Timeout;
 export function CountdownProvider({ children } : CountdownProviderProps) {
   const { startNewChallenge } = useContext(ChallengesContext);
 
-  const [time, setTime] = useState(0.1 * 60);
+  const [selectMinutes, setSelectMinutes] = useState(25);
+  const [time, setTime] = useState(selectMinutes * 60);
   const [isActive, setIsActive] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
 
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
+
+  function changeMinutes(minutes: number) {
+    Cookies.set('minutes', String(minutes));
+    setSelectMinutes(minutes);
+    setTime(minutes * 60);
+  }
 
   function startCountdown() {
     setIsActive(true);
@@ -36,8 +46,21 @@ export function CountdownProvider({ children } : CountdownProviderProps) {
     clearTimeout(countdownTimeout);
     setIsActive(false);
     setHasFinished(false);
-    setTime(0.1 * 60);
+    setTime(selectMinutes * 60);
   }
+
+  useEffect(() => {
+    // Checked if there is minutes in cookie
+    const minutesStored = Cookies.get('minutes');
+    if (minutesStored) {
+      setSelectMinutes(Number(minutesStored));
+      setTime(Number(minutesStored) * 60);
+    } else {
+      Cookies.set('minutes', "25");
+      setSelectMinutes(25);
+      setTime(25 * 60);
+    }
+  }, []);
 
   useEffect(() => {
     if (isActive && time > 0) {
@@ -58,8 +81,10 @@ export function CountdownProvider({ children } : CountdownProviderProps) {
         seconds,
         hasFinished,
         isActive,
+        selectMinutes,
         startCountdown,
         resetCountdown,
+        changeMinutes
       }}
     >
       {children}

@@ -11,6 +11,7 @@ import { ExperienceBar } from "../components/ExperienceBar";
 import { Profile } from "../components/Profile";
 import { ChallengeBox } from "../components/ChallengeBox";
 import Loader from "../components/Loader";
+import SelectTime from '../components/SelectTime';
 
 import styles from '../styles/pages/Home.module.css';
 import { CountdownProvider } from '../contexts/CountdownContext';
@@ -59,6 +60,9 @@ export default function Home(props: HomeProps) {
         </Head>
         <ExperienceBar/>
         <CountdownProvider>
+          <div className={styles.selectTime}>
+            <SelectTime/>
+          </div>
           <section>
             <div>
               <Profile/>

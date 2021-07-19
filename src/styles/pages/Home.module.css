@@ -14,3 +14,10 @@
   gap: 6.25rem;
   align-items: center;
 }
+
+.selectTime {
+  width: fit-content;
+  position: relative;
+  left: 970px;
+  top: -25px;
+}

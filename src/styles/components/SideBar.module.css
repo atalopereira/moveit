@@ -23,6 +23,23 @@
   height: 80vh;
 }
 
+.options svg {
+  margin-bottom: 2rem;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
+.options svg:nth-child(-n+2):hover path {
+  fill: var(--blue);
+  transition: all 0.2s ease-out;
+}
+
+.options svg:nth-child(3):hover path {
+  stroke: var(--blue);
+  transition: all 0.2s ease-out;
+}
+
 .options img {
   margin-bottom: 2rem;
   width: 2rem;
