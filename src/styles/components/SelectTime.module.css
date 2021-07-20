@@ -7,15 +7,5 @@
 
 .title {
   font-size: 18px;
-}
-
-.select {
-  /* appearance: none; */
-  /* -webkit-appearance: none; */
-  height: 40px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid var(--gray-line);
-  background-color: var(--white);
-  /* box-shadow: ; */
+  font-weight: 500;
 }
