@@ -61,11 +61,9 @@ export default function SideBar(props: SideBarProps) {
             </svg>
           </div>
           <div className={style.exitOption}>
-            <img
-              onClick={goToLogin}
-              src="icons/exit.svg"
-              alt="classificação"
-            />
+            <svg onClick={goToLogin} width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M28.8 24V19.2H16.8V14.4H28.8V9.6L36 16.8L28.8 24ZM26.4 21.6V31.2H14.4V38.4L0 31.2V0H26.4V12H24V2.4H4.8L14.4 7.2V28.8H24V21.6H26.4Z" fill="black"/>
+            </svg>
           </div>
         </div>
       }

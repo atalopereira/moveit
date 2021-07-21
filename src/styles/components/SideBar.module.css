@@ -40,24 +40,20 @@
   transition: all 0.2s ease-out;
 }
 
-.options img {
-  margin-bottom: 2rem;
-  width: 2rem;
-}
-
-.options img:hover {
-  cursor: pointer;
-}
-
 .exitOption {
   display: flex;
   justify-content: center;
 }
 
-.exitOption img {
+.exitOption svg {
   width: 2rem;
 }
 
-.exitOption img:hover {
+.exitOption svg:hover {
   cursor: pointer;
+}
+
+.exitOption svg:hover path {
+  fill: var(--blue);
+  transition: all 0.2s ease-out;
 }

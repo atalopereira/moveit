@@ -44,7 +44,7 @@ Essas funcionalidades foram desenvolvidas no evento:
 - Contabilização de pontos;
 - Contabilização de níveis.
 
-## ✔️➕ Funcionalidades adicionais
+## ➕ Funcionalidades adicionais
 
 Essas funcionalidades foram desenvolvidas por mim, após o evento:
 
@@ -52,6 +52,7 @@ Essas funcionalidades foram desenvolvidas por mim, após o evento:
 - Tela de login;
 - Progresso semanal através de um gráfico de barras;
 - Classificação geral do usuário.
+- Alteração do tempo dos alertas (25 minutos, 15 minutos ou para testar o sistema 6 segundos)
 
 ## 🖌️ Layout
 

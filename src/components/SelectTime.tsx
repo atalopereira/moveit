@@ -44,7 +44,7 @@ const SelectTime = () => {
 
   return (
     <div className={styles.container}>
-      <span className={styles.title}>Altere o tempo</span>
+      <span className={styles.title}>Alterar o tempo</span>
       <Select
         styles={customStyles}
         controlShouldRenderValue={true}
