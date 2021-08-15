@@ -35,6 +35,7 @@ export default function Home(props: HomeProps) {
     if (!token) {
       router.replace('/');
     } else if (isLoadingLogin) {
+      console.log('loading');
       changeLoandingLogin();
     }
 

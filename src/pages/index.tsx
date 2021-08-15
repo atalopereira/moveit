@@ -1,23 +1,53 @@
 import { useRouter } from 'next/router';
-import { FormEvent, useContext, useState } from 'react';
+import { FormEvent, useContext, useEffect, useState } from 'react';
 import {
   getUserGitHub, createUser, getUser
 } from '../api';
 import Loader from '../components/Loader';
 import styles from '../styles/pages/Login.module.css';
 import { UserInfoContext } from '../contexts/UserInfoContext';
+import { signIn, useSession, getSession } from 'next-auth/client';
+
+declare module "next-auth" {
+  interface Session {
+    expires?: string,
+    user: {
+      name?: string,
+      email?: string,
+      picture?: string,
+      sub?: string,
+      exp?: number,
+      iat?: number
+    }
+  }
+}
 
 export default function Login() {
   const router = useRouter();
   const host = global.window && global.window.location.host;
+  const [session, loading] = useSession();
   const { isLoadingLogin, storeInfoUser, changeLoandingLogin  } = useContext(UserInfoContext);
   const [username, setUsername] = useState('');
   const [errorUser, setErrorUser] = useState(false);
+  
+  useEffect(() => {
+    console.log('session; ', session);
+    if(session) {
+      console.log('isLoadingLogin; ', isLoadingLogin);
+      changeLoandingLogin();
+      signInWithGitHub(Number(session.user.sub));
+    }
+  }, [session]);
 
-  async function signIn(event: FormEvent) {
-    event.preventDefault();
+  async function signInWithGitHub(userId: number) {
+  // async function signInWithGitHub() {
+  //   await signIn("github").then(() => {
+  //     console.log('session: ', session);
+  //   });
+  //   console.log('session: ', session);
 
-    await getUserGitHub.get(username)
+    
+    await getUserGitHub(userId)
       .then((response) => {
         const { id } = response.data;
 
@@ -33,13 +63,11 @@ export default function Login() {
             storeInfoUser(id, name, username);
           });
 
-        changeLoandingLogin();
-
         setTimeout(() => {
           router.push('/home');
         }, 2000);
       })
-      .catch((error) => {
+      .catch(() => {
         setErrorUser(true);
       });
   }
@@ -63,8 +91,18 @@ export default function Login() {
             <img src="/icons/github.svg" alt="logo github" />
             <p>Faça o login usando sua conta do GitHub</p>
           </div>
+          <button
+            // onClick={() => signIn("github", { callbackUrl: 'http://localhost:3000/home' })}
+            // onClick={() => signIn("github", { redirect: false })}
+            onClick={() => {
+              changeLoandingLogin();
+              signIn("github", { redirect: false })
+            }}
+          >
+            Entrar pelo GitHub
+          </button>
 
-          <form onSubmit={signIn}>
+          <form>
             <div className={styles.wrapLogin}>
               {isLoadingLogin ?
                 <>
@@ -90,6 +128,12 @@ export default function Login() {
                   />
                   <button type="submit">
                     <img src="/icons/arrow-right.svg" alt="entrar" />
+                  </button>
+                  <button
+                    // onClick={() => signIn("github", { callbackUrl: 'http://localhost:3000/home' })}
+                    onClick={() => signIn("github")}
+                  >
+                    Entrar pelo GitHub
                   </button>
                 </>
               }

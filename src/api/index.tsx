@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export const getUserGitHub = axios.create({
-  baseURL: 'https://api.github.com/users/'
-});
+export async function getUserGitHub(id: number) {
+  return await axios.get(`https://api.github.com/user/${id}`);
+}
 
 export async function createUser(username: string, name: string, id: number, host: string) {
   return await axios.post(`http://${host}/api/registerUsers`, { username, name, id })

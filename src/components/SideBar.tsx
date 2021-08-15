@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useRouter } from 'next/router';
+import { signOut } from 'next-auth/client';
 
 import style from '../styles/components/SideBar.module.css';
 import { UserInfoContext } from '../contexts/UserInfoContext';
@@ -34,7 +35,7 @@ export default function SideBar(props: SideBarProps) {
   }
 
   function goToLogin() {
-    route.push('/');
+    signOut({callbackUrl: "/"});
   }
 
   return (
